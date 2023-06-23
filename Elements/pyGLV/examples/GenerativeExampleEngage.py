@@ -18,15 +18,38 @@ import numpy as np
 import UsdImporter as SceneLoader
 from Elements.pyECSS.Entity import Entity
 
+
+if not os.path.exists("Training_Scenes"):
+    import requests
+    import zipfile
+
+    # Dropbox link to the zip file
+    dropbox_link = "https://www.dropbox.com/s/nv9lm9jyjwx7tj6/Training_Scenes2.zip?dl=1"
+
+    # Download the zip file
+    response = requests.get(dropbox_link, stream=True)
+    zip_filename = "file.zip"
+
+    with open(zip_filename, "wb") as file:
+        for chunk in response.iter_content(chunk_size=128):
+            file.write(chunk)
+
+    # Extract the contents of the zip file
+    with zipfile.ZipFile(zip_filename, "r") as zip_ref:
+        zip_ref.extractall("Training_Scenes")
+
+    # Clean up the downloaded zip file
+    import os
+
+    os.remove(zip_filename)
+else:
+    print("Skipping download, scenes already exist.")
+
 numscenes = 1000
-r1 = -1
-r2 = 1
 mydata = []
 myy = []
 tempobs = objs.copy()
 tempobs.remove("root")
-save_path = "Training_Scenes2"
-num_of_obs = 0
 label_emb = 8
 features = 7
 latent_dim = 16
@@ -226,11 +249,9 @@ for i in range(1000):
     Scene.reset_instance()
     scene = Scene()
     rootEntity = scene.world.createEntity(Entity(name="RooT"))
-    SceneLoader.LoadScene(scene, "Training_Scenes2/scene" + str(i) + ".usd")
+    SceneLoader.LoadScene(scene, "Training_Scenes/Training_Scenes2/scene" + str(i) + ".usd")
     # This line can be changed to different GA converting functions, for example TRS, CGA etc.
     data = Converter.ECStoGNNSimpleTransQuat(scene)
-    if data.x.shape[0] >= 3:
-        mydata.append(data)
 
 eachrun = np.zeros((100, 10))
 for run in range(10):
