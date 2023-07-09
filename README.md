@@ -5,6 +5,8 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2302.07691-b31b1b.svg)](https://arxiv.org/abs/2302.07691)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+> **Warning**
+> This branch is deprecated and will soon be deleted. Rebase/Merge your work with the latest [SiggraphFeatures2 branch!](https://github.com/papagiannakis/Elements/tree/feature/SiggraphFeatures2)
 
 
 https://user-images.githubusercontent.com/13041399/229489757-f0f3d208-a26d-4fa2-8891-f4d1c7f3aa27.mp4
